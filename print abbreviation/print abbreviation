@@ -1,0 +1,18 @@
+s = input()
+ans = []
+def helper(indx,path,cnt):
+    if indx >= len(s):
+        if cnt == 0:
+            ans.append(path)
+        else:
+            ans.append(path + str(cnt))
+        return 
+    if cnt > 0:
+        helper(indx+1,path+ str(cnt) + s[indx],0)
+    else:
+        helper(indx+1,path + s[indx],0)
+    helper(indx+1,path,cnt+1)
+helper(0,'',0)
+
+for i in range(len(ans)):
+    print(ans[i])
