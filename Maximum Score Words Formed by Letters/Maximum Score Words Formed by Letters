@@ -1,0 +1,23 @@
+class Solution:
+    def maxScoreWords(self, words: List[str], letters: List[str], score: List[int]) -> int:
+        let = Counter(letters)
+        ans = []
+        def helper(indx):
+            if indx == len(words):
+                return 0
+            scr = 0
+            bol = True
+            for i in range(len(words[indx])):
+                if let[words[indx][i]] == 0:
+                    bol = False
+                val = ord(words[indx][i]) - ord('a')
+                let[words[indx][i]] -= 1
+                scr += score[val] 
+            pick = 0
+            if bol:
+                pick = scr + helper(indx+1)
+            for i in range(len(words[indx])):
+                let[words[indx][i]] += 1
+            notpick = helper(indx+1)
+            return max(pick,notpick)
+        return helper(0)
